@@ -71,7 +71,7 @@ public class ProjectServiceIntegrationTest {
 		assertThat(projectsNumber).isEqualTo(3);
 	}
 
-	@Test
+	/*@Test
 	@Sql(scripts = { "/clean.sql", "/data.sql" }, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 	public void createProjectWithTeamWithTechnology() {
 		// arrange
@@ -96,5 +96,5 @@ public class ProjectServiceIntegrationTest {
 		assertThat(projectId).isNotNull();
 		assertThat(newTeam.isPresent()).isTrue();
 		assertThat(newTechnology.isPresent()).isTrue();
-	}
+	}*/
 }
