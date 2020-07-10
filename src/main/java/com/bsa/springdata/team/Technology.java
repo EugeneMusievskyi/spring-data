@@ -15,10 +15,14 @@ import java.util.UUID;
 @Entity
 @Table(name = "technologies")
 public class Technology {
+
     @Id
     @GeneratedValue(generator = "UUID")
     private UUID id;
+
     private String name;
+
     private String description;
+
     private String link;
 }
