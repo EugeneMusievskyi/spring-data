@@ -5,6 +5,9 @@ import com.bsa.springdata.team.TeamRepository;
 import com.bsa.springdata.user.dto.CreateUserDto;
 import com.bsa.springdata.user.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -61,26 +64,44 @@ public class UserService {
 
     public List<UserDto> findByLastName(String lastName, int page, int size) {
         // TODO: Use a single query. Use class Sort to sort users by last name. Try to avoid @Query annotation here
-        return null;
+        var sort = Sort.sort(User.class).by(User::getLastName).ascending();
+        return userRepository
+                .findByLastNameLike(lastName, PageRequest.of(page, size, sort))
+                .stream()
+                .map(UserDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     public List<UserDto> findByCity(String city) {
         // TODO: Use a single query. Sort users by last name
-        return null;
+        return userRepository
+                .findByCity(city)
+                .stream()
+                .map(UserDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     public List<UserDto> findByExperience(int experience) {
         // TODO: Use a single query. Sort users by experience by descending. Try to avoid @Query annotation here
-        return null;
+        var sort = Sort.sort(User.class).by(User::getExperience).descending();
+        return userRepository
+                .findByExperienceGreaterThanEqual(experience, sort)
+                .stream()
+                .map(UserDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     public List<UserDto> findByRoomAndCity(String city, String room) {
         // TODO: Use a single query. Use class Sort to sort users by last name.
-        return null;
+        return userRepository
+                .findByRoomAndCity(city, room)
+                .stream()
+                .map(UserDto::fromEntity)
+                .collect(Collectors.toList());
     }
 
     public int deleteByExperience(int experience) {
         // TODO: Use a single query. Return a number of deleted rows
-        return 0;
+        return userRepository.deleteByExperience(experience);
     }
 }
