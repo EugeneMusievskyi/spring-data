@@ -6,7 +6,6 @@ import com.bsa.springdata.user.dto.CreateUserDto;
 import com.bsa.springdata.user.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -66,7 +65,7 @@ public class UserService {
         // TODO: Use a single query. Use class Sort to sort users by last name. Try to avoid @Query annotation here
         var sort = Sort.sort(User.class).by(User::getLastName).ascending();
         return userRepository
-                .findByLastNameLike(lastName, PageRequest.of(page, size, sort))
+                .findByLastNameIgnoreCaseStartingWith(lastName, PageRequest.of(page, size, sort))
                 .stream()
                 .map(UserDto::fromEntity)
                 .collect(Collectors.toList());
@@ -83,7 +82,7 @@ public class UserService {
 
     public List<UserDto> findByExperience(int experience) {
         // TODO: Use a single query. Sort users by experience by descending. Try to avoid @Query annotation here
-        var sort = Sort.sort(User.class).by(User::getExperience).descending();
+        var sort = Sort.sort(User.class).by("experience").descending();
         return userRepository
                 .findByExperienceGreaterThanEqual(experience, sort)
                 .stream()

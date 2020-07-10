@@ -13,7 +13,7 @@ import java.util.UUID;
 
 public interface UserRepository extends JpaRepository<User, UUID> {
 
-    List<User> findByLastNameLike(String lastName, Pageable pageable);
+    List<User> findByLastNameIgnoreCaseStartingWith(String lastName, Pageable pageable);
 
     @Query("SELECT u FROM User u WHERE u.office.city = :city ORDER BY u.lastName")
     List<User> findByCity(@Param("city") String city);
@@ -25,6 +25,6 @@ public interface UserRepository extends JpaRepository<User, UUID> {
 
     @Modifying
     @Transactional
-    @Query("DELETE FROM User u WHERE u.experience = :experience")
+    @Query("DELETE FROM User u WHERE u.experience < :experience")
     int deleteByExperience(@Param("experience") int experience);
 }
