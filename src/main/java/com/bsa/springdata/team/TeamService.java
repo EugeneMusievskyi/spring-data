@@ -12,6 +12,7 @@ public class TeamService {
 
     public void updateTechnology(int devsNumber, String oldTechnologyName, String newTechnologyName) {
         // TODO: You can use several queries here. Try to keep it as simple as possible
+        teamRepository.updateTechnology(devsNumber, oldTechnologyName, newTechnologyName);
     }
 
     public void normalizeName(String hipsters) {

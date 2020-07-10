@@ -56,7 +56,7 @@ public class ProjectServiceIntegrationTest {
 		assertThat(facebook.getName()).isEqualTo("Facebook");
 		assertThat(facebook.getDevelopersNumber()).isEqualTo(8);
 		assertThat(facebook.getTeamsNumber()).isEqualTo(2);
-		assertThat(facebook.getTechnologies()).isEqualTo("JavaScript,Java");
+		assertThat(facebook.getTechnologies()).isEqualTo("Java,JavaScript");
 	}
 
 	@Test
@@ -71,7 +71,7 @@ public class ProjectServiceIntegrationTest {
 		assertThat(projectsNumber).isEqualTo(3);
 	}
 
-	/*@Test
+	@Test
 	@Sql(scripts = { "/clean.sql", "/data.sql" }, executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 	public void createProjectWithTeamWithTechnology() {
 		// arrange
@@ -96,5 +96,5 @@ public class ProjectServiceIntegrationTest {
 		assertThat(projectId).isNotNull();
 		assertThat(newTeam.isPresent()).isTrue();
 		assertThat(newTechnology.isPresent()).isTrue();
-	}*/
+	}
 }

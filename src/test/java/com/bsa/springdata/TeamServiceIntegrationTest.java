@@ -11,7 +11,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 public class TeamServiceIntegrationTest {
-	/*@Autowired
+	@Autowired
 	private TeamService teamService;
 	@Autowired
 	private TeamRepository teamRepository;
@@ -46,5 +46,5 @@ public class TeamServiceIntegrationTest {
 		var updatedTeam = teamRepository.findByName("Hipsters_Facebook_JavaScript");
 
 		assertThat(updatedTeam.isPresent()).isTrue();
-	}*/
+	}
 }
