@@ -24,15 +24,13 @@ public interface ProjectRepository extends JpaRepository<Project, UUID> {
             "ORDER BY count(t) DESC, count(u) DESC, p.name DESC")
     List<Project> findTheBiggest(Pageable pageable);
 
-    @Query(value = "SELECT p.name, count(distinct(teams)) as teamsNumber, count(u) as developersNumber,  " +
+    @Query(value =
+            "SELECT p.name, count(distinct(teams)) as teamsNumber, count(u) as developersNumber,  " +
             "string_agg(distinct(tech.name), ',') as technologies " +
             "FROM projects p " +
-            "INNER JOIN teams " +
-            "ON p.id = teams.project_id " +
-            "INNER JOIN technologies tech " +
-            "ON teams.technology_id = tech.id " +
-            "INNER JOIN users u " +
-            "ON teams.id = u.team_id " +
+            "INNER JOIN teams ON p.id = teams.project_id " +
+            "INNER JOIN technologies tech ON teams.technology_id = tech.id " +
+            "INNER JOIN users u ON teams.id = u.team_id " +
             "GROUP BY p.name " +
             "ORDER BY p.name",
             nativeQuery = true)
