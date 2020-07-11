@@ -5,6 +5,7 @@ import com.bsa.springdata.project.dto.ProjectDto;
 import com.bsa.springdata.project.dto.ProjectSummaryDto;
 import com.bsa.springdata.team.Team;
 import com.bsa.springdata.team.TeamRepository;
+import com.bsa.springdata.team.Technology;
 import com.bsa.springdata.team.TechnologyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
@@ -64,6 +65,20 @@ public class ProjectService {
                 .name(createProjectRequest.getProjectName())
                 .description(createProjectRequest.getProjectDescription())
                 .build();
+
+        var team = Team.builder()
+                .name(createProjectRequest.getTeamName())
+                .area(createProjectRequest.getTeamArea())
+                .room(createProjectRequest.getTeamRoom())
+                .build();
+        teamRepository.save(team);
+
+        var technology = Technology.builder()
+                .name(createProjectRequest.getTech())
+                .description(createProjectRequest.getTechDescription())
+                .link(createProjectRequest.getTechLink())
+                .build();
+        technologyRepository.save(technology);
 
         var savedProject = projectRepository.save(project);
         return savedProject.getId();
