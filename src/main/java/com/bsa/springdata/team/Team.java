@@ -16,6 +16,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "teams")
 public class Team {
@@ -34,6 +35,7 @@ public class Team {
     @JoinColumn(name = "project_id")
     private Project project;
 
+    @Builder.Default
     @OneToMany(mappedBy = "team")
     private List<User> users = new ArrayList<>();
 

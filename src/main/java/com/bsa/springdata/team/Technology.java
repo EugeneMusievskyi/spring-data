@@ -1,5 +1,7 @@
 package com.bsa.springdata.team;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
@@ -12,6 +14,8 @@ import java.util.UUID;
 // TODO: Map table technologies to this entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
+@Builder
 @Entity
 @Table(name = "technologies")
 public class Technology {

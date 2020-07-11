@@ -3,6 +3,8 @@ package com.bsa.springdata.team;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+
 @Service
 public class TeamService {
     @Autowired
@@ -12,11 +14,11 @@ public class TeamService {
 
     public void updateTechnology(int devsNumber, String oldTechnologyName, String newTechnologyName) {
         // TODO: You can use several queries here. Try to keep it as simple as possible
-        teamRepository.updateTechnology(devsNumber, oldTechnologyName, newTechnologyName);
+        teamRepository.updateTechnology((long) devsNumber, oldTechnologyName, newTechnologyName);
     }
 
     public void normalizeName(String hipsters) {
         // TODO: Use a single query. You need to create a native query
-//        teamRepository.normalizeName(hipsters);
+        teamRepository.normalizeName(hipsters);
     }
 }
