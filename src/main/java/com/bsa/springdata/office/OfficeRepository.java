@@ -11,11 +11,11 @@ import java.util.Optional;
 import java.util.UUID;
 
 public interface OfficeRepository extends JpaRepository<Office, UUID> {
-    @Query("SELECT distinct(o) FROM Office o " +
-            "INNER JOIN o.users u " +
+    @Query("SELECT o FROM Office o " +
+            "WHERE :technology IN( " +
+            "SELECT tech.name FROM o.users u " +
             "INNER JOIN u.team t " +
-            "INNER JOIN t.technology tech " +
-            "WHERE tech.name = :technology")
+            "INNER JOIN t.technology tech)")
     List<Office> findByTechnology(@Param("technology") String technology);
 
     @Transactional
@@ -23,8 +23,7 @@ public interface OfficeRepository extends JpaRepository<Office, UUID> {
     @Query("UPDATE Office o SET o.address = :newAddress WHERE o.address = :oldAddress " +
             "AND exists(SELECT u FROM o.users u WHERE u.team.project IS NOT NULL)")
     void updateAddress(@Param("oldAddress") String oldAddress,
-                                   @Param("newAddress") String newAddress);
+                       @Param("newAddress") String newAddress);
 
-    Optional<Office> findByAddress(String city);
-
+    Optional<Office> findByAddress(String address);
 }
